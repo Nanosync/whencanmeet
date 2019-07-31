@@ -9,7 +9,8 @@ import {
   Row,
   Col,
   Button,
-  ButtonToolbar
+  ButtonToolbar,
+  Image
 } from 'react-bootstrap';
 import { fetchMeeting } from '../../actions';
 import { meetingType } from '../../types';
@@ -18,7 +19,7 @@ class MeetingDetails extends React.Component {
   componentDidMount() {
     const { match, fetchMeeting: fetchMeetingRedux } = this.props;
     const { id, token } = match.params;
-    
+
     document.title = 'Meeting Details / When Can Meet';
 
     fetchMeetingRedux(id, token);
@@ -106,7 +107,7 @@ class MeetingDetails extends React.Component {
           </Col>
           <Col md={10}>
             <h2>{name}</h2>
-            <img src="/images/placeholder-820x320.png" alt="Logo" />
+            <Image src="/images/placeholder-820x320.png" alt="Logo" fluid />
             <p className="lead">{description}</p>
             <p>
               Location:&nbsp;
