@@ -1,0 +1,28 @@
+{
+  "name": "whenmeet-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "Benedict Pak",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.0.0",
+    "express-validator": "^6.1.1",
+    "mongoose": "^5.6.5",
+    "morgan-body": "^2.4.7",
+    "passport-facebook": "^3.0.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1"
+  }
+}
