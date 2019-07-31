@@ -21,6 +21,8 @@ class MeetingDelete extends React.Component {
     const { fetchMeeting: fetchMeetingRedux, match } = this.props;
     const { id } = match.params;
 
+    document.title = 'Delete Meeting / When Can Meet';
+
     fetchMeetingRedux(id);
   }
 

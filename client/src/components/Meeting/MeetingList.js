@@ -15,6 +15,9 @@ import { meetingType } from '../../types';
 class MeetingList extends React.Component {
   componentDidMount() {
     const { fetchMeetings: fetchMeetingsRedux } = this.props;
+
+    document.title = 'Meeting List / When Can Meet';
+
     fetchMeetingsRedux();
   }
 

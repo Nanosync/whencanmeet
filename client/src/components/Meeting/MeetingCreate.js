@@ -13,32 +13,39 @@ import MeetingForm from './MeetingForm';
 import { createMeeting } from '../../actions';
 
 
-function MeetingCreate(props) {
-  const handleFormSubmit = (values, { setSubmitting }) => {
-    props.createMeeting(values, props.history);
+class MeetingCreate extends React.Component {
+  componentDidMount() {
+    document.title = 'Create Meeting / When Can Meet';
+  }
+
+  handleFormSubmit = (values, { setSubmitting }) => {
+    const { createMeeting: createMeetingRedux, history } = this.props;
+    createMeetingRedux(values, history);
     setSubmitting(false);
   };
 
-  return (
-    <Container className="my-4">
-      <Row>
-        <Col>
-          <h1>Create Meeting</h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <hr />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p className="lead">Enter your meeting details below.</p>
-        </Col>
-      </Row>
-      <MeetingForm onSubmit={handleFormSubmit} formButtonText="Create Meeting" />
-    </Container>
-  );
+  render() {
+    return (
+      <Container className="my-4">
+        <Row>
+          <Col>
+            <h1>Create Meeting</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <hr />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p className="lead">Enter your meeting details below.</p>
+          </Col>
+        </Row>
+        <MeetingForm onSubmit={this.handleFormSubmit} formButtonText="Create Meeting" />
+      </Container>
+    );
+  }
 }
 
 MeetingCreate.propTypes = {

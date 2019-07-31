@@ -19,6 +19,10 @@ class MeetingHome extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.title = 'When Can Meet';
+  }
+
   handleFormSubmit(e) {
     e.preventDefault();
 

@@ -18,6 +18,9 @@ class MeetingDetails extends React.Component {
   componentDidMount() {
     const { match, fetchMeeting: fetchMeetingRedux } = this.props;
     const { id, token } = match.params;
+    
+    document.title = 'Meeting Details / When Can Meet';
+
     fetchMeetingRedux(id, token);
   }
 
