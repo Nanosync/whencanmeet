@@ -5,7 +5,8 @@ import {
   Row,
   Col,
   Form,
-  Button
+  Button,
+  Image
 } from 'react-bootstrap';
 import { withRouter, Link } from 'react-router-dom';
 
@@ -41,10 +42,10 @@ class MeetingHome extends React.Component {
     return (
       <Container className="my-4">
         <Row>
-          <Col md="2" sm="3" xs="3" className="text-right">
-            <img src="/images/logo.png" alt="Logo" style={{ width: '100px', height: '100px' }} />
+          <Col lg="4" md="4" sm="4" xs="4" className="text-right">
+            <Image src="/images/logo.png" alt="Logo" style={{ width: '150px', height: '150px' }} />
           </Col>
-          <Col md="10" sm="9" xs="9">
+          <Col lg="8" md="8" sm="8" xs="8" className="my-auto">
             <h1>When Can Meet?</h1>
             <p className="lead">A service to arrange meetings.</p>
           </Col>
