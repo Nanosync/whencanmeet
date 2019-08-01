@@ -77,7 +77,7 @@ class MeetingList extends React.Component {
         <Row>
           <Col>
             <h1>Public Meetings</h1>
-            <p className="lead">View the latest meetings below</p>
+            <p className="lead">View the latest meetings below.</p>
             <hr />
           </Col>
         </Row>
