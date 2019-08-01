@@ -10,12 +10,25 @@ import {
   Col,
   Button,
   ButtonToolbar,
-  Image
+  Image,
+  InputGroup,
+  FormControl
 } from 'react-bootstrap';
 import { fetchMeeting } from '../../actions';
 import { meetingType } from '../../types';
+import ShareModal from '../ShareModal';
 
 class MeetingDetails extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showShareModal: false,
+      copyUrlAcknowledgement: false,
+      adminPageUrl: ''
+    };
+  }
+
   componentDidMount() {
     const { match, fetchMeeting: fetchMeetingRedux } = this.props;
     const { id, token } = match.params;
@@ -23,32 +36,59 @@ class MeetingDetails extends React.Component {
     document.title = 'Meeting Details / When Can Meet';
 
     fetchMeetingRedux(id, token);
+
+    this.setState({ adminPageUrl: `${window.location.origin}/meeting/${id}/${token}` });
   }
+  
+  handleCopyClick = (e) => {
+    const { adminPageUrl } = this.state;
+    navigator.clipboard.writeText(adminPageUrl);
+    this.setState({ copyUrlAcknowledgement: true });
+  };
 
   renderAdmin() {
     const { meeting } = this.props;
 
     if (meeting.adminToken) {
       const { id, adminToken } = meeting;
+      const { copyUrlAcknowledgement } = this.state;
 
       return (
-        <Row className="text-right">
-          <Col>
-            <p>
-              <strong>
-                Bookmark this page or you&apos;ll lose access to the following options!
-              </strong>
+        <div className="my-4">
+          <hr />
+          <p>
+            <strong>
+              Bookmark this page or you&apos;ll lose access to the following options!
+            </strong>
+          </p>
+          <InputGroup className="mb-3" style={{ paddingLeft: '1em', paddingRight: '1em' }}>
+            <FormControl
+              value={`${window.location.origin}/meeting/${id}/${adminToken}`}
+              aria-label="Share URL"
+              aria-describedby="basic-addon2"
+              readOnly
+            />
+            <InputGroup.Append>
+              <Button id="basic-addon2" title="Copy URL" aria-label="Copy URL" variant="primary" onClick={this.handleCopyClick}>
+                { /* eslint-disable-next-line */ }
+                <i className="fa fa-files-o" aria-hidden="true"></i>
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
+          { copyUrlAcknowledgement ? (
+            <p style={{ color: 'green' }}>
+              Link copied to clipboard!
             </p>
-            <ButtonToolbar>
-              <Link to={`/meeting/update/${id}/${adminToken}`}>
-                <Button variant="primary" size="lg">Edit</Button>
-              </Link>
-              <Link to={`/meeting/delete/${id}/${adminToken}`}>
-                <Button variant="danger" size="lg">Delete</Button>
-              </Link>
-            </ButtonToolbar>
-          </Col>
-        </Row>
+            ) : null }
+          <ButtonToolbar className="ml-auto">
+            <Link to={`/meeting/update/${id}/${adminToken}`}>
+              <Button variant="info" size="lg" className="mr-1">Edit</Button>
+            </Link>
+            <Link to={`/meeting/delete/${id}/${adminToken}`}>
+              <Button variant="danger" size="lg">Delete</Button>
+            </Link>
+          </ButtonToolbar>
+        </div>
       );
     }
 
@@ -81,6 +121,7 @@ class MeetingDetails extends React.Component {
     }
 
     const {
+      id,
       name,
       description,
       startDate,
@@ -89,14 +130,12 @@ class MeetingDetails extends React.Component {
       website
     } = meeting;
 
+    const { showShareModal } = this.state;
+
     return (
       <Container className="my-4">
-        <Row>
-          <Col>
-            <h1>Meeting Details</h1>
-            <hr />
-          </Col>
-        </Row>
+        <h1>Meeting Details</h1>
+        <hr />
         <Row>
           <Col md={2}>
             <h3><Moment format="DD/MM/YYYY hh:mma">{startDate}</Moment></h3>
@@ -119,10 +158,14 @@ class MeetingDetails extends React.Component {
                 {location}
               </a>
             </p>
-            <p><a href={website}>Click here to signup</a></p>
+            <ButtonToolbar>
+              <Button href={website} variant="primary" className="mr-1">Click here to signup</Button>
+              <Button variant="success" onClick={() => this.setState({ showShareModal: true })}>Share this event</Button>
+              <ShareModal shareURL={`${window.location.origin}/meeting/${id}`} show={showShareModal} onHide={() => this.setState({ showShareModal: false })} />
+            </ButtonToolbar>
+            {this.renderAdmin()}
           </Col>
         </Row>
-        {this.renderAdmin()}
       </Container>
     );  
   }

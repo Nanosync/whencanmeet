@@ -21,25 +21,25 @@ const formSchema = yup.object().shape({
     .string()
     .required('Event description is required'),
   startDate: yup
-    .date()
+    .date('Invalid date')
     .required('Start date required')
     .min(new Date(), 'Event date cannot be in the past'),
   endDate: yup
-    .date()
+    .date('Invalid date')
     .when('startDate', (start, schema) => schema.min(start, 'End date should be after start date')),
   location: yup
     .string()
     .required('Location is required'),
   website: yup
     .string()
-    .url()
+    .url('Website should be a valid url (starts with http:// or https://)')
     .required('Website is required')
 });
 
 
 const currDate = new Date();
 currDate.setDate(currDate.getDate());
-currDate.setHours(0, 0, 0, 0);
+currDate.setHours(24, 0, 0, 0);
 
 const presetInitialValues = {
   name: '',
@@ -75,7 +75,7 @@ function MeetingForm(props) {
         validateField,
         dirty
       }) => (
-        <Form noValidate onSubmit={handleSubmit}> 
+        <Form noValidate onSubmit={handleSubmit} autoComplete="off"> 
           <Form.Group as={Row} controlId="formHorizontalName">
             <Form.Label column sm="2">
               Event Name
@@ -121,7 +121,7 @@ function MeetingForm(props) {
 
           <Form.Group as={Row} controlId="formHorizontalDateStart">
             <Form.Label column sm="2">
-              Date Start
+              Starts on
             </Form.Label>
             <Col sm="10">
               <DatePicker
@@ -147,7 +147,7 @@ function MeetingForm(props) {
 
           <Form.Group as={Row} controlId="formHorizontalDateEnd">
             <Form.Label column sm="2">
-              Date End
+              Ends on
             </Form.Label>
             <Col sm="10">
               <DatePicker
@@ -201,7 +201,7 @@ function MeetingForm(props) {
                 <Form.Check
                   type="checkbox"
                   name="public"
-                  label="Make this event visible to everyone"
+                  label="Make this a public event"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   checked={values.public}
@@ -219,7 +219,7 @@ function MeetingForm(props) {
               <Form.Control
                 type="text"
                 name="website"
-                placeholder="Enter the event website"
+                placeholder="Enter the event website (e.g. http://www.google.com)"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.website}

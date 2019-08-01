@@ -2,18 +2,29 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 
 function MyModal(props) {
+  const {
+    title,
+    body,
+    show,
+    buttons,
+    onHide,
+    ...additionalProps
+  } = props;
+
+  const footer = buttons ? (
+    <Modal.Footer>
+      {buttons}
+    </Modal.Footer>
+  ) : null;
+
   return (
-    <>
-      <Modal {...props} size="lg" centered show={props.show} onHide={props.onHide}>
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">{props.title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{props.body}</Modal.Body>
-        <Modal.Footer>
-          {props.buttons}
-        </Modal.Footer>
-      </Modal>
-    </>
+    <Modal {...additionalProps} aria-labelledby="contained-modal-title-vcenter" show={show} onHide={onHide} centered>
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>{body}</Modal.Body>
+      {footer}
+    </Modal>
   );
 }
 

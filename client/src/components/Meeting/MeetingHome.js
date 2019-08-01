@@ -86,7 +86,7 @@ class MeetingHome extends React.Component {
           <Form.Group as={Row} controlId="codeGrp">
             <Form.Label column sm="2">Meeting Code</Form.Label>
             <Col sm="10">
-              <Form.Control type="text" name="code" value={code} onChange={e => this.setState({ code: e.target.value })} placeholder="Enter code" />
+              <Form.Control type="text" name="code" value={code} onChange={e => this.setState({ code: e.target.value })} placeholder="Enter code" required />
             </Col>
           </Form.Group>
 
