@@ -4,7 +4,8 @@ import {
   Row,
   Col,
   Form,
-  Button
+  Button,
+  InputGroup
 } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -127,7 +128,7 @@ function MeetingForm(props) {
               <DatePicker
                 name="startDate"
                 placeholder="When is the event?"
-                dateFormat="dd/MM/yyyy h:mm aa"
+                dateFormat="dd/MM/yyyy p"
                 value={values.startDate}
                 onChange={setFieldValue}
                 onBlur={handleBlur}
@@ -135,9 +136,10 @@ function MeetingForm(props) {
                 validate={validateField}
                 isValid={touched.startDate && !errors.startDate}
                 isInvalid={touched.startDate && !!errors.startDate}
-                showTimeSelect
                 timeFormat="h:mm aa"
                 utcOffset={moment().utcOffset()}
+                withPortal
+                showTimeInput
               />
               <Form.Control.Feedback type="invalid" style={{ display: 'block' }}>
                 {errors.startDate}
@@ -153,17 +155,19 @@ function MeetingForm(props) {
               <DatePicker
                 name="endDate"
                 placeholder="When does the event end?"
-                dateFormat="dd/MM/yyyy h:mm aa"
+                dateFormat="dd/MM/yyyy p"
                 value={values.endDate}
+                minDate={values.startDate}
                 onChange={setFieldValue}
                 onBlur={handleBlur}
                 onClickOutside={setFieldTouched}
                 validate={validateField}
                 isValid={touched.endDate && !errors.endDate}
                 isInvalid={touched.endDate && !!errors.endDate}
-                showTimeSelect
                 timeFormat="h:mm aa"
                 utcOffset={moment().utcOffset()}
+                withPortal
+                showTimeInput
               />
               <Form.Control.Feedback type="invalid" style={{ display: 'block' }}>
                 {errors.endDate}

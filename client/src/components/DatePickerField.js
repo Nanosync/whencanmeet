@@ -1,5 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
+import { Button } from 'react-bootstrap';
+
+const CustomInput = (props) => {
+  const { onClick, value } = props;
+  return (
+    <Button
+      variant="dark"
+      onClick={onClick}
+    >
+      {value}
+    </Button>
+  );
+};
+
+CustomInput.propTypes = {
+  onClick: PropTypes.func,
+  value: PropTypes.string
+};
 
 const DatePickerField = ({
   name,
@@ -17,12 +36,14 @@ const DatePickerField = ({
     name={name}
     autoComplete="off"
     selected={value}
+    customInput={<CustomInput />}
+    // onChangeRaw={e => e.preventDefault()}
     onChange={val => onChange(name, val)}
     onClickOutside={() => {
       onClickOutside(name, true);
       validate(value);
     }}
-    className={`form-control ${isValid ? 'is-valid' : ''} ${isInvalid ? 'is-invalid' : ''}`}
+    // className={`form-control ${isValid ? 'is-valid' : ''} ${isInvalid ? 'is-invalid' : ''}`}
     placeholderText={placeholder}
     {...props}
   >
