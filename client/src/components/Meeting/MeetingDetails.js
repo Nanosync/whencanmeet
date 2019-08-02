@@ -24,7 +24,8 @@ class MeetingDetails extends React.Component {
 
     this.state = {
       showShareModal: false,
-      copyUrlAcknowledgement: false,
+      copyUrlSuccess: false,
+      copyUrlError: false,
       adminPageUrl: ''
     };
   }
@@ -42,16 +43,39 @@ class MeetingDetails extends React.Component {
   
   handleCopyClick = (e) => {
     const { adminPageUrl } = this.state;
-    navigator.clipboard.writeText(adminPageUrl);
-    this.setState({ copyUrlAcknowledgement: true });
+    navigator.clipboard.writeText(adminPageUrl)
+      .then(() => this.setState({ copyUrlSuccess: true }))
+      .catch(() => this.setState({ copyUrlError: true }));
   };
+
+  renderUrlCopied() {
+    const { copyUrlSuccess, copyUrlError } = this.state;
+    if (copyUrlError) {
+      return (
+        <p style={{ color: 'red' }}>
+          Link could not be copied. Please copy the URL manually.
+        </p>
+      );
+    }
+
+    if (!copyUrlSuccess) {
+      return (
+        <p>&nbsp;</p>
+      );
+    }
+
+    return (
+      <p style={{ color: 'green' }}>
+        Link copied to clipboard!
+      </p>
+    );
+  }
 
   renderAdmin() {
     const { meeting } = this.props;
 
     if (meeting.adminToken) {
       const { id, adminToken } = meeting;
-      const { copyUrlAcknowledgement } = this.state;
 
       return (
         <div className="my-4">
@@ -75,11 +99,7 @@ class MeetingDetails extends React.Component {
               </Button>
             </InputGroup.Append>
           </InputGroup>
-          { copyUrlAcknowledgement ? (
-            <p style={{ color: 'green' }}>
-              Link copied to clipboard!
-            </p>
-            ) : null }
+          { this.renderUrlCopied() }
           <ButtonToolbar className="ml-auto">
             <Link to={`/meeting/update/${id}/${adminToken}`}>
               <Button variant="info" size="lg" className="mr-1">Edit</Button>
@@ -159,7 +179,15 @@ class MeetingDetails extends React.Component {
               </a>
             </p>
             <ButtonToolbar>
-              <Button href={website} variant="primary" className="mr-1">Click here to signup</Button>
+              <Button
+                href={website} 
+                rel="noopener noreferrer"
+                target="_blank"
+                variant="primary"
+                className="mr-1"
+              >
+                Click here to signup
+              </Button>
               <Button variant="success" onClick={() => this.setState({ showShareModal: true })}>Share this event</Button>
               <ShareModal shareURL={`${window.location.origin}/meeting/${id}`} show={showShareModal} onHide={() => this.setState({ showShareModal: false })} />
             </ButtonToolbar>

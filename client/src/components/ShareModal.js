@@ -4,7 +4,7 @@ import MyModal from './MyModal';
 
 function ShareModal(props) {
   const { shareURL, onHide, ...additionalProps } = props;
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   const handleCopyClick = (e) => {
     navigator.clipboard.writeText(shareURL);
     setShow(true);
