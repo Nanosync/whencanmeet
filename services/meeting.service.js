@@ -26,7 +26,9 @@ const getMeeting = async function(id, token) {
 }
 
 const getMeetings = async function(id, token) {
-  const meeting = await Meeting.find({ "public": true }, { "adminToken": 0, "creatorIP": 0 });
+  const meeting = await Meeting
+    .find({ "public": true }, { "adminToken": 0, "creatorIP": 0 })
+    .sort({ "startDate": 1 });
 
   if (!meeting) {
     throw new Error("No meetings available.");
@@ -51,7 +53,7 @@ const updateMeeting = async function(id, token, fieldsToUpdate) {
     .findOneAndUpdate(
       { "id": id },
       fieldsToUpdate,
-      { new: true }
+      { new: true } // returns the new document
     );
 }
 

@@ -25,6 +25,7 @@ class MeetingList extends React.Component {
   renderItems() {
     const { meetings } = this.props;
 
+    /*
     const sorted = meetings.slice(0).sort((a, b) => {
       if (moment(a.startDate).isAfter(moment(b.startDate))) {
         return 1;
@@ -36,10 +37,11 @@ class MeetingList extends React.Component {
 
       return 0;
     });
+    */
     
     const now = new Date();
 
-    return sorted.map((item) => {
+    return meetings.map((item) => {
       if (moment(item.startDate) < moment(now) && moment(item.endDate) < moment(now)) {
         return null;
       }

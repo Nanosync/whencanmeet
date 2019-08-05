@@ -15,7 +15,11 @@ let meetingSchema = new mongoose.Schema({
   website: String,
   public: Boolean,
   adminToken: String,
-  creatorIP: String
+  creatorIP: String,
+  createdDate: {
+    type: Date,
+    default: Date.now
+  }
   //invitees: [String],
   //owner: {
   //  type: mongoose.Schema.Types.ObjectId,

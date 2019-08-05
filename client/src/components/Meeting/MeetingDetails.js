@@ -12,7 +12,8 @@ import {
   ButtonToolbar,
   Image,
   InputGroup,
-  FormControl
+  FormControl,
+  FormLabel
 } from 'react-bootstrap';
 import { fetchMeeting } from '../../actions';
 import { meetingType } from '../../types';
@@ -85,15 +86,17 @@ class MeetingDetails extends React.Component {
               Bookmark this page or you&apos;ll lose access to the following options!
             </strong>
           </p>
+          <label htmlFor="admin-url">Admin URL</label>
           <InputGroup className="mb-3" style={{ paddingLeft: '1em', paddingRight: '1em' }}>
             <FormControl
+              id="admin-url"
               value={`${window.location.origin}/meeting/${id}/${adminToken}`}
-              aria-label="Share URL"
-              aria-describedby="basic-addon2"
+              aria-label="Copy URL"
+              aria-describedby="copy-url"
               readOnly
             />
             <InputGroup.Append>
-              <Button id="basic-addon2" title="Copy URL" aria-label="Copy URL" variant="primary" onClick={this.handleCopyClick}>
+              <Button id="copy-url" title="Copy URL" aria-label="Copy URL" variant="primary" onClick={this.handleCopyClick}>
                 { /* eslint-disable-next-line */ }
                 <i className="fa fa-files-o" aria-hidden="true"></i>
               </Button>
@@ -166,7 +169,7 @@ class MeetingDetails extends React.Component {
           </Col>
           <Col md={10}>
             <h2>{name}</h2>
-            <Image src="/images/placeholder-820x320.png" alt="Logo" fluid />
+            { /* <Image src="/images/placeholder-820x320.png" alt="Logo" fluid /> */ }
             <p className="lead">{description}</p>
             <p>
               Location:&nbsp;
@@ -180,7 +183,7 @@ class MeetingDetails extends React.Component {
             </p>
             <ButtonToolbar>
               <Button
-                href={website} 
+                href={website}
                 rel="noopener noreferrer"
                 target="_blank"
                 variant="primary"

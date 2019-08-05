@@ -23,12 +23,12 @@ function ShareModal(props) {
       <InputGroup className="mb-3" style={{ paddingLeft: '1em', paddingRight: '1em' }}>
         <FormControl
           value={shareURL}
-          aria-label="Share URL"
-          aria-describedby="basic-addon2"
+          aria-label="Copy URL"
+          aria-describedby="copy-url"
           readOnly
         />
         <InputGroup.Append>
-          <Button id="basic-addon2" title="Copy URL" aria-label="Copy URL" variant="primary" onClick={handleCopyClick}>
+          <Button id="copy-url" title="Copy URL" aria-label="Copy URL" variant="primary" onClick={handleCopyClick}>
             { /* eslint-disable-next-line */ }
             <i className="fa fa-files-o" aria-hidden="true"></i>
           </Button>
