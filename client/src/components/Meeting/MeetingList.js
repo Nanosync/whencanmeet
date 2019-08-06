@@ -56,11 +56,11 @@ class MeetingList extends React.Component {
       }
 
       return (
-        <ListGroup.Item action onClick={() => history.push(`/meeting/${item.id}`)} key={item.id}>
+        <ListGroup.Item key={item.id}>
           <Container>
             <Row>
               <Col xs={4} sm={4} md={2}>
-                <Image src="/images/logo.png" fluid rounded style={{width: '100px', height: '100px'}} />
+                <Image src="/images/logo.png" fluid rounded style={{ width: '100px', height: '100px' }} />
               </Col>
               <Col xs={8} sm={8} md={10}>
                 <div className="d-flex w-100 justify-content-between">
