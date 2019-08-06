@@ -22,7 +22,7 @@ class MeetingHome extends React.Component {
   }
 
   componentDidMount() {
-    document.title = 'When Can Meet';
+    document.title = 'When Can Meet?';
   }
 
   handleFormSubmit(e) {
@@ -48,7 +48,7 @@ class MeetingHome extends React.Component {
           </Col>
           <Col lg={8} md={8} sm={8} xs={8} className="my-auto">
             <h1>When Can Meet?</h1>
-            <p className="lead">A service to arrange meetings.</p>
+            <p className="lead">A service to arrange meetings and events.</p>
           </Col>
         </Row>
 
@@ -101,11 +101,11 @@ class MeetingHome extends React.Component {
                 <Card.Text>
                   Discover something fun today.
                   <br />
-                  Browse new meetings in your area.
+                  Browse new events in your area.
                 </Card.Text>
                 <Link to="/meetings">
                   <Button size="lg" variant="info">
-                    View public meetings
+                    View public events
                   </Button>
                 </Link>
               </Card.Body>

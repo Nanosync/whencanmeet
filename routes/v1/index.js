@@ -9,15 +9,20 @@ const router = express.Router();
 //   res.json({ result: "API" });
 // });
 
-const modifyLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10
-});
+let modifyLimiter = () => 1;
+let getLimiter = () => 1;
 
-const getLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 100
-});
+if (process.env.NODE_ENV !== 'dev') {
+  modifyLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10
+  });
+
+  getLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 100
+  });
+}
 
 router.get('/meetings', getLimiter, meetingController.getMeetings);
 router.post('/meeting', [modifyLimiter, meetingController.validate('createMeeting')], meetingController.createMeeting);

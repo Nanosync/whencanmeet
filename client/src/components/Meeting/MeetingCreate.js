@@ -15,7 +15,7 @@ import { createMeeting } from '../../actions';
 
 class MeetingCreate extends React.Component {
   componentDidMount() {
-    document.title = 'Create Meeting / When Can Meet';
+    document.title = 'Create Meeting / When Can Meet?';
   }
 
   handleFormSubmit = (values, { setSubmitting }) => {

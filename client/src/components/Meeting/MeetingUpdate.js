@@ -24,7 +24,7 @@ class MeetingUpdate extends React.Component {
     const { match, fetchMeeting: fetchMeetingRedux } = this.props;
     const { id, token } = match.params;
 
-    document.title = 'Update Meeting / When Can Meet';
+    document.title = 'Update Meeting / When Can Meet?';
 
     // console.log(this.props);
     fetchMeetingRedux(id, token);

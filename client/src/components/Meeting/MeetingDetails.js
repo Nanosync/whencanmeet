@@ -10,10 +10,9 @@ import {
   Col,
   Button,
   ButtonToolbar,
-  Image,
+  // Image,
   InputGroup,
-  FormControl,
-  FormLabel
+  FormControl
 } from 'react-bootstrap';
 import { fetchMeeting } from '../../actions';
 import { meetingType } from '../../types';
@@ -35,16 +34,24 @@ class MeetingDetails extends React.Component {
     const { match, fetchMeeting: fetchMeetingRedux } = this.props;
     const { id, token } = match.params;
 
-    document.title = 'Meeting Details / When Can Meet';
+    document.title = 'Meeting Details / When Can Meet?';
 
     fetchMeetingRedux(id, token);
 
     this.setState({ adminPageUrl: `${window.location.origin}/meeting/${id}/${token}` });
   }
   
-  handleCopyClick = (e) => {
+  handleCopyAdminClick = (e) => {
     const { adminPageUrl } = this.state;
     navigator.clipboard.writeText(adminPageUrl)
+      .then(() => this.setState({ copyUrlSuccess: true }))
+      .catch(() => this.setState({ copyUrlError: true }));
+  };
+
+  handleCopyCodeClick = (e) => {
+    const { match } = this.props;
+    const { id } = match.params;
+    navigator.clipboard.writeText(id)
       .then(() => this.setState({ copyUrlSuccess: true }))
       .catch(() => this.setState({ copyUrlError: true }));
   };
@@ -86,6 +93,7 @@ class MeetingDetails extends React.Component {
               Bookmark this page or you&apos;ll lose access to the following options!
             </strong>
           </p>
+          { /* eslint-disable-next-line */}
           <label htmlFor="admin-url">Admin URL</label>
           <InputGroup className="mb-3" style={{ paddingLeft: '1em', paddingRight: '1em' }}>
             <FormControl
@@ -96,13 +104,33 @@ class MeetingDetails extends React.Component {
               readOnly
             />
             <InputGroup.Append>
-              <Button id="copy-url" title="Copy URL" aria-label="Copy URL" variant="primary" onClick={this.handleCopyClick}>
+              <Button id="copy-url" title="Copy URL" aria-label="Copy URL" variant="primary" onClick={this.handleCopyAdminClick}>
                 { /* eslint-disable-next-line */ }
                 <i className="fa fa-files-o" aria-hidden="true"></i>
               </Button>
             </InputGroup.Append>
           </InputGroup>
+
+          { /* eslint-disable-next-line */}
+          <label htmlFor="share-code">Share Code</label>
+          <InputGroup className="mb-3" style={{ paddingLeft: '1em', paddingRight: '1em' }}>
+            <FormControl
+              id="share-code"
+              value={id}
+              aria-label="Share Code"
+              aria-describedby="copy-share-code"
+              readOnly
+            />
+            <InputGroup.Append>
+              <Button id="copy-share-code" title="Copy Share Code" aria-label="Copy Share Code" variant="primary" onClick={this.handleCopyCodeClick}>
+                { /* eslint-disable-next-line */ }
+                <i className="fa fa-files-o" aria-hidden="true"></i>
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
+
           { this.renderUrlCopied() }
+
           <ButtonToolbar className="ml-auto">
             <Link to={`/meeting/update/${id}/${adminToken}`}>
               <Button variant="info" size="lg" className="mr-1">Edit</Button>
@@ -154,6 +182,7 @@ class MeetingDetails extends React.Component {
     } = meeting;
 
     const { showShareModal } = this.state;
+    document.title = `${name} / Meeting Details / When Can Meet?`;
 
     return (
       <Container className="my-4">
@@ -172,7 +201,9 @@ class MeetingDetails extends React.Component {
             { /* <Image src="/images/placeholder-820x320.png" alt="Logo" fluid /> */ }
             <p className="lead">{description}</p>
             <p>
-              Location:&nbsp;
+              { /* eslint-disable-next-line */ }
+              <i className="fa fa-map-marker" aria-hidden="true"></i>
+              &nbsp;Location:&nbsp;
               <a
                 href={`https://www.google.com/maps/search/?api=1&query=${location}`}
                 rel="noopener noreferrer"

@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
   Container,
   Row,
   Col,
-  Table
+  ListGroup,
+  Image
 } from 'react-bootstrap';
 import moment from 'moment';
+import 'moment/locale/en-SG';
 import Moment from 'react-moment';
 import { fetchMeetings } from '../../actions';
 import { meetingType } from '../../types';
@@ -17,13 +19,14 @@ class MeetingList extends React.Component {
   componentDidMount() {
     const { fetchMeetings: fetchMeetingsRedux } = this.props;
 
-    document.title = 'Public Meetings / When Can Meet';
+    document.title = 'Meetings and Events / When Can Meet?';
+    moment.locale('en-SG');
 
     fetchMeetingsRedux();
   }
 
   renderItems() {
-    const { meetings } = this.props;
+    const { meetings, history } = this.props;
 
     /*
     const sorted = meetings.slice(0).sort((a, b) => {
@@ -53,15 +56,33 @@ class MeetingList extends React.Component {
       }
 
       return (
-        <tr key={item.id}>
-          <td>
-            <Link to={`/meeting/${item.id}`}><strong>{item.name}</strong></Link>
-          </td>
-          <td style={{ wordBreak: 'break-word' }}>{desc}</td>
-          <td>{item.location}</td>
-          <td><span title={moment(item.startDate).format('YYYY-MM-DD HH:mm')}><Moment fromNow>{item.startDate}</Moment></span></td>
-          <td><Moment fromNow>{item.endDate}</Moment></td>
-        </tr>
+        <ListGroup.Item action onClick={() => history.push(`/meeting/${item.id}`)} key={item.id}>
+          <Container>
+            <Row>
+              <Col xs={4} sm={4} md={2}>
+                <Image src="/images/logo.png" fluid rounded style={{width: '100px', height: '100px'}} />
+              </Col>
+              <Col xs={8} sm={8} md={10}>
+                <div className="d-flex w-100 justify-content-between">
+                  <h4 className="mb-1"><Link to={`/meeting/${item.id}`}>{item.name}</Link></h4>
+                </div>
+                <div>
+                  <small><Moment format="llll">{item.startDate}</Moment></small>
+                  <br />
+                  <small>
+                    { /* eslint-disable-next-line */ }
+                    <i className="fa fa-map-marker" aria-hidden="true"></i>
+                    &nbsp;
+                    {item.location}
+                  </small>
+                </div>
+                <p className="mb-1">{desc}</p>
+              </Col>
+            </Row>
+          </Container>
+          
+
+        </ListGroup.Item>
       );
     });
   }
@@ -78,25 +99,14 @@ class MeetingList extends React.Component {
       <Container className="my-4">
         <Row>
           <Col>
-            <h1>Public Meetings</h1>
-            <p className="lead">View the latest meetings below.</p>
+            <h1>Meetings and Events</h1>
+            <p className="lead">View the latest events below.</p>
             <hr />
           </Col>
         </Row>
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th className="w-25">Name</th>
-              <th className="w-25">Description</th>
-              <th>Location</th>
-              <th>Starts</th>
-              <th>Ends</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderItems()}
-          </tbody>
-        </Table>
+        <ListGroup variant="flush" className="d-flex">
+          {this.renderItems()}
+        </ListGroup>
       </Container>
     );
   }
@@ -115,7 +125,7 @@ MeetingList.defaultProps = {
   meetings: []
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { fetchMeetings }
-)(MeetingList);
+)(MeetingList));
