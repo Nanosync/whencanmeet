@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 const dev = app.get('env') !== 'production';
+const secure = require('ssl-express-www');
 const PORT = process.env.PORT || 3001;
 
 let whitelist = ['http://whencanmeet.herokuapp.com', 'https://whencanmeet.herokuapp.com', 'http://whencanmeet.benedictpak.com']
@@ -20,6 +21,7 @@ if (dev) {
   app.disable('x-powered-by');
   app.use(morgan('common'));
 
+  app.use(secure);
   app.use(express.static(path.resolve(__dirname, 'client/build')));
   mongoose.connect(process.env.MONGOLAB_URI, { useNewUrlParser: true, dbName: 'whenmeet' });
 }
