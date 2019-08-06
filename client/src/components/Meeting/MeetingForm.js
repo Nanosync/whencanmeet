@@ -247,7 +247,7 @@ function MeetingForm(props) {
 }
 
 MeetingForm.propTypes = {
-  initialValues: PropTypes.arrayOf(PropTypes.any),
+  initialValues: PropTypes.objectOf(PropTypes.any),
   onSubmit: PropTypes.func.isRequired,
   formButtonText: PropTypes.string.isRequired
 };

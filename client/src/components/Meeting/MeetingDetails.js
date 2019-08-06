@@ -10,7 +10,7 @@ import {
   Col,
   Button,
   ButtonToolbar,
-  // Image,
+  Image,
   InputGroup,
   FormControl
 } from 'react-bootstrap';
@@ -105,13 +105,13 @@ class MeetingDetails extends React.Component {
             />
             <InputGroup.Append>
               <Button id="copy-url" title="Copy URL" aria-label="Copy URL" variant="primary" onClick={this.handleCopyAdminClick}>
-                { /* eslint-disable-next-line */ }
+                { /* eslint-disable-next-line react/self-closing-comp */ }
                 <i className="fa fa-files-o" aria-hidden="true"></i>
               </Button>
             </InputGroup.Append>
           </InputGroup>
 
-          { /* eslint-disable-next-line */}
+          { /* eslint-disable-next-line */ }
           <label htmlFor="share-code">Share Code</label>
           <InputGroup className="mb-3" style={{ paddingLeft: '1em', paddingRight: '1em' }}>
             <FormControl
@@ -123,7 +123,7 @@ class MeetingDetails extends React.Component {
             />
             <InputGroup.Append>
               <Button id="copy-share-code" title="Copy Share Code" aria-label="Copy Share Code" variant="primary" onClick={this.handleCopyCodeClick}>
-                { /* eslint-disable-next-line */ }
+                { /* eslint-disable-next-line react/self-closing-comp */ }
                 <i className="fa fa-files-o" aria-hidden="true"></i>
               </Button>
             </InputGroup.Append>
@@ -186,24 +186,35 @@ class MeetingDetails extends React.Component {
 
     return (
       <Container className="my-4">
-        <h1>Meeting Details</h1>
+        <h4>Meeting Details</h4>
         <hr />
         <Row>
-          <Col md={2}>
-            <h3><Moment format="DD/MM/YYYY hh:mma">{startDate}</Moment></h3>
-            <p className="lead">
-              Till&nbsp;
-              <Moment format="DD/MM/YYYY hh:mma">{endDate}</Moment>
-            </p>
+          <Col xs={2} md={1}>
+            <h4 className="text-right">
+              <Moment format="D MMM">{startDate}</Moment>
+            </h4>
           </Col>
-          <Col md={10}>
+          <Col xs={10} md={11}>
             <h2>{name}</h2>
-            { /* <Image src="/images/placeholder-820x320.png" alt="Logo" fluid /> */ }
-            <p className="lead">{description}</p>
             <p>
-              { /* eslint-disable-next-line */ }
+              { /* eslint-disable-next-line react/self-closing-comp */ }
+              <i className="fa fa-clock-o" aria-hidden="true"></i>
+              &nbsp;
+              <strong>Date and Time:</strong>
+              &nbsp;
+              <br />
+              <Moment format="llll">{startDate}</Moment>
+              &nbsp;-&nbsp;
+              <Moment format="llll">{endDate}</Moment>
+              &nbsp;
+              <Moment format="ZZ" />
+            </p>
+            <p>
+              { /* eslint-disable-next-line react/self-closing-comp */ }
               <i className="fa fa-map-marker" aria-hidden="true"></i>
-              &nbsp;Location:&nbsp;
+              &nbsp;
+              <strong>Location:</strong>
+              <br />
               <a
                 href={`https://www.google.com/maps/search/?api=1&query=${location}`}
                 rel="noopener noreferrer"
@@ -212,6 +223,14 @@ class MeetingDetails extends React.Component {
                 {location}
               </a>
             </p>
+            <p>
+              <strong>Description:</strong>
+              <br />
+              <span className="lead">{description}</span>
+            </p>
+            <Image src="/images/event-preview.png" alt="Logo" fluid />
+            <hr />
+            
             <ButtonToolbar>
               <Button
                 href={website}

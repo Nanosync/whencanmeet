@@ -26,12 +26,10 @@ class MeetingUpdate extends React.Component {
 
     document.title = 'Update Meeting / When Can Meet?';
 
-    // console.log(this.props);
     fetchMeetingRedux(id, token);
   }
 
   handleFormSubmit = (values, { setSubmitting }) => {
-    // console.log(values);
     const { history, match, updateMeeting: updateMeetingRedux } = this.props;
     const { id, token } = match.params;
     updateMeetingRedux(values, id, token, history);
@@ -43,11 +41,8 @@ class MeetingUpdate extends React.Component {
     if (!meeting) {
       return null;
     }
-    
-    // console.log(this.props.meeting);
 
     const { id, adminToken, ...formValues } = meeting;
-    // console.log(formValues);
 
     formValues.startDate = new Date(formValues.startDate);
     formValues.endDate = new Date(formValues.endDate);
@@ -87,7 +82,7 @@ MeetingUpdate.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
   fetchMeeting: PropTypes.func.isRequired,
   updateMeeting: PropTypes.func.isRequired,
-  meeting: meetingType.isRequired
+  meeting: meetingType
 };
 
 export default withRouter(connect(

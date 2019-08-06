@@ -60,14 +60,14 @@ class MeetingList extends React.Component {
           <Container>
             <Row>
               <Col xs={4} sm={4} md={2}>
-                <Image src="/images/logo.png" fluid rounded style={{ width: '100px', height: '100px' }} />
+                <Image src="/images/event.png" fluid rounded />
               </Col>
               <Col xs={8} sm={8} md={10}>
                 <div className="d-flex w-100 justify-content-between">
                   <h4 className="mb-1"><Link to={`/meeting/${item.id}`}>{item.name}</Link></h4>
                 </div>
                 <div>
-                  <small><Moment format="llll">{item.startDate}</Moment></small>
+                  <small><Moment format="llll ZZ">{item.startDate}</Moment></small>
                   <br />
                   <small>
                     { /* eslint-disable-next-line */ }
@@ -101,7 +101,6 @@ class MeetingList extends React.Component {
           <Col>
             <h1>Meetings and Events</h1>
             <p className="lead">View the latest events below.</p>
-            <hr />
           </Col>
         </Row>
         <ListGroup variant="flush" className="d-flex">

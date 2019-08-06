@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import { Button } from 'react-bootstrap';
 
-const CustomInput = (props) => {
+const CustomInput = React.forwardRef((props, ref) => {
   const { onClick, value } = props;
   return (
     <Button
       variant="dark"
       onClick={onClick}
+      ref={ref}
     >
       {value}
     </Button>
   );
-};
+});
 
 CustomInput.propTypes = {
   onClick: PropTypes.func,

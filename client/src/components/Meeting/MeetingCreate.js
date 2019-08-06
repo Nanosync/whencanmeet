@@ -30,16 +30,9 @@ class MeetingCreate extends React.Component {
         <Row>
           <Col>
             <h1>Create Meeting</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <hr />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
             <p className="lead">Enter your meeting details below.</p>
+            <hr />
+            
           </Col>
         </Row>
         <MeetingForm onSubmit={this.handleFormSubmit} formButtonText="Create Meeting" />

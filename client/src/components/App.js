@@ -6,6 +6,9 @@ import {
   Switch
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import moment from 'moment';
+import 'moment-timezone';
+import Moment from 'react-moment';
 import { Navbar } from 'react-bootstrap';
 import MeetingHome from './Meeting/MeetingHome';
 import MeetingCreate from './Meeting/MeetingCreate';
@@ -13,6 +16,11 @@ import MeetingList from './Meeting/MeetingList';
 import MeetingDetails from './Meeting/MeetingDetails';
 import MeetingUpdate from './Meeting/MeetingUpdate';
 import MeetingDelete from './Meeting/MeetingDelete';
+
+Moment.globalMoment = moment;
+Moment.globalLocale = 'en-SG';
+Moment.globalTimezone = 'Asia/Singapore';
+Moment.globalLocal = true;
 
 class App extends React.Component {
   render() {
@@ -23,6 +31,9 @@ class App extends React.Component {
             <Navbar bg="dark" variant="dark" expand="lg">
               <Link to="/">
                 <Navbar.Brand>
+                  { /* eslint-disable-next-line react/self-closing-comp */}
+                  <i className="fa fa-calendar" aria-hidden="true"></i>
+                  &nbsp;
                   When Can Meet?
                 </Navbar.Brand>
               </Link>

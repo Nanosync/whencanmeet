@@ -51,7 +51,7 @@ const updateMeeting = async function(id, token, fieldsToUpdate) {
 
   return await Meeting
     .findOneAndUpdate(
-      { "id": id },
+      { "_id": id },
       fieldsToUpdate,
       { new: true } // returns the new document
     );
