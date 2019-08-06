@@ -52,16 +52,8 @@ class MeetingUpdate extends React.Component {
         <Row>
           <Col>
             <h1>Update Meeting</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <hr />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
             <p className="lead">Enter your meeting details below.</p>
+            <hr />
           </Col>
         </Row>
         <MeetingForm onSubmit={this.handleFormSubmit} initialValues={formValues} formButtonText="Update Meeting" />
