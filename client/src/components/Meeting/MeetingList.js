@@ -67,16 +67,21 @@ class MeetingList extends React.Component {
                   <h4 className="mb-1"><Link to={`/meeting/${item.id}`}>{item.name}</Link></h4>
                 </div>
                 <div>
-                  <small><Moment format="llll ZZ">{item.startDate}</Moment></small>
-                  <br />
                   <small>
-                    { /* eslint-disable-next-line */ }
+                    { /* eslint-disable-next-line react/self-closing-comp */ }
+                    <i className="fa fa-clock-o" aria-hidden="true"></i>
+                    &nbsp;
+                    <Moment format="llll ZZ">
+                      {item.startDate}
+                    </Moment>
+                    <br />
+                    { /* eslint-disable-next-line react/self-closing-comp */ }
                     <i className="fa fa-map-marker" aria-hidden="true"></i>
                     &nbsp;
                     {item.location}
                   </small>
                 </div>
-                <p className="mb-1">{desc}</p>
+                <p className="mt-2 mb-2">{desc}</p>
               </Col>
             </Row>
           </Container>
