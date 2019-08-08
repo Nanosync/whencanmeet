@@ -10,7 +10,7 @@ const dev = app.get('env') !== 'production';
 const sslRedirect = require('heroku-ssl-redirect');
 const PORT = process.env.PORT || 3001;
 
-let whitelist = ['http://whencanmeet.herokuapp.com', 'https://whencanmeet.herokuapp.com', 'http://whencanmeet.benedictpak.com'];
+let whitelist = ['https://whencanmeet.herokuapp.com', 'https://whencanmeet.benedictpak.com'];
 
 // SSL only enabled for production by default
 app.use(sslRedirect());
