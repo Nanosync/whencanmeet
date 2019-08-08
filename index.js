@@ -7,10 +7,13 @@ const mongoose = require('mongoose');
 
 const app = express();
 const dev = app.get('env') !== 'production';
-const secure = require('ssl-express-www');
+const sslRedirect = require('heroku-ssl-redirect');
 const PORT = process.env.PORT || 3001;
 
-let whitelist = ['http://whencanmeet.herokuapp.com', 'https://whencanmeet.herokuapp.com', 'http://whencanmeet.benedictpak.com']
+let whitelist = ['http://whencanmeet.herokuapp.com', 'https://whencanmeet.herokuapp.com', 'http://whencanmeet.benedictpak.com'];
+
+// SSL only enabled for production by default
+app.use(sslRedirect());
 
 if (dev) {
   whitelist.push('http://localhost:3000');
@@ -21,7 +24,6 @@ if (dev) {
   app.disable('x-powered-by');
   app.use(morgan('common'));
 
-  app.use(secure);
   app.use(express.static(path.resolve(__dirname, 'client/build')));
   mongoose.connect(process.env.MONGOLAB_URI, { useNewUrlParser: true, dbName: 'whenmeet' });
 }
