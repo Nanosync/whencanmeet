@@ -16,6 +16,7 @@ import MeetingList from './Meeting/MeetingList';
 import MeetingDetails from './Meeting/MeetingDetails';
 import MeetingUpdate from './Meeting/MeetingUpdate';
 import MeetingDelete from './Meeting/MeetingDelete';
+import Footer from './Footer';
 
 Moment.globalMoment = moment;
 Moment.globalLocale = 'en-SG';
@@ -48,6 +49,7 @@ class App extends React.Component {
               <Route path="/meeting/delete/:id/:token" exact component={MeetingDelete} />
               <Route render={() => '404 Not Found'} />
             </Switch>
+            <Footer />
           </div>
         </Router>
       </div>
