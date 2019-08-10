@@ -10,7 +10,6 @@ import {
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import 'react-datepicker/dist/react-datepicker.css';
-import './MeetingForm.css';
 import moment from 'moment';
 import DatePicker from '../DatePickerField';
 
