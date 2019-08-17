@@ -4,6 +4,8 @@ Built during the 2019 June summer break.
 
 It is a **simple, single-page web application designed for meetings.**
 
+Live demo: [Click here](https://whencanmeet.benedictpak.com/)
+
 ## What made you build this?
 
 All for the sake of learning and experimentation!
@@ -20,6 +22,7 @@ All for the sake of learning and experimentation!
 - API for meeting management
 - Runs on a database
 - Uses modern technologies, particularly the MERN stack (MongoDB, Express, React, Node)
+- Deployed on Heroku
 
 ## Stretch goals
 
