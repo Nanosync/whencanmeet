@@ -2,6 +2,8 @@
   "name": "whenmeet-client",
   "version": "0.1.0",
   "private": true,
+  "author": "Benedict Pak",
+  "license": "GPL-3.0",
   "dependencies": {
     "axios": "^0.18.1",
     "bootstrap": "^4.3.1",
