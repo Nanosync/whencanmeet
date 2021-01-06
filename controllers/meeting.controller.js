@@ -106,8 +106,6 @@ const updateMeeting = async function (req, res, next) {
   const { id, token } = req.params;
   req.body.creatorIP = req.clientIP;
   req.body.createdDate = undefined; // don't change this field
-
-  console.log(id);
   
   await meetingService.updateMeeting(id, token, req.body)
     .then(meeting => res.status(200).json(meeting))
